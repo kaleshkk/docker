@@ -1,10 +1,11 @@
 # Use the base PHP image with Apache
-FROM php:7.4-apache
+FROM php:8.1-apache
 
-# Install additional PHP extensions, for example: mysqli
-RUN docker-php-ext-install mysqli
-# Install lynx (or you can use w3m as an alternative)
-RUN apt-get update && apt-get install -y lynx
+# Install mysqli extension
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
 
 # Copy the PHP application to the Apache web directory
 COPY . /var/www/html/
